@@ -1,0 +1,87 @@
+import { Layout } from "@/components/Layout";
+import { SectionHeading } from "@/components/SectionHeading";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { Building2, Globe, Handshake, ArrowRight } from "lucide-react";
+
+const audiences = [
+  {
+    icon: Building2,
+    title: "Kenyan SMEs",
+    desc: "You're expanding beyond Kenya or working with international suppliers and partners. You need to know that the party on the other side is real, reliable, and accountable.",
+    examples: [
+      "Importing goods from a new supplier abroad",
+      "Partnering with a foreign distributor",
+      "Seeking investment from international sources",
+    ],
+  },
+  {
+    icon: Globe,
+    title: "Diaspora Operators & Investors",
+    desc: "You're investing in or building businesses in Kenya from abroad. Distance makes trust harder. Afrinexus gives you verification, documentation, and proof — so you don't have to rely on faith.",
+    examples: [
+      "Funding a business venture in Kenya remotely",
+      "Managing operations through local partners",
+      "Structuring agreements that hold up across borders",
+    ],
+  },
+  {
+    icon: Handshake,
+    title: "Cross-Border Dealmakers",
+    desc: "You're a founder, operator, or professional involved in deals that cross national boundaries. You need infrastructure that matches the seriousness of your work.",
+    examples: [
+      "Joint ventures between Kenyan and international firms",
+      "Trade agreements requiring verified counterparties",
+      "Any deal where trust is the difference between profit and loss",
+    ],
+  },
+];
+
+export default function WhoItsFor() {
+  return (
+    <Layout>
+      <section className="bg-navy-gradient py-20">
+        <div className="container">
+          <SectionHeading
+            light
+            label="Audience"
+            title="Built for Serious Dealmakers"
+            description="Afrinexus is not for casual browsing. It's for people who have real money on the line and need real protection."
+          />
+        </div>
+      </section>
+
+      <section className="py-20">
+        <div className="container max-w-4xl">
+          <div className="space-y-12">
+            {audiences.map((a, i) => (
+              <div key={i} className="rounded-lg border bg-card p-8 animate-fade-up" style={{ animationDelay: `${i * 100}ms` }}>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10">
+                    <a.icon className="h-6 w-6 text-accent" />
+                  </div>
+                  <h3 className="font-serif text-2xl text-foreground">{a.title}</h3>
+                </div>
+                <p className="text-muted-foreground mb-4">{a.desc}</p>
+                <ul className="space-y-2">
+                  {a.examples.map((ex, j) => (
+                    <li key={j} className="flex gap-3 text-sm text-muted-foreground">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                      {ex}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-gold-dark">
+              <Link to="/early-access">Apply for Early Access <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+    </Layout>
+  );
+}
