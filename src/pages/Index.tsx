@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/ui/button";
+import { Reveal } from "@/components/Reveal";
+import { FAQ } from "@/components/FAQ";
 import { Shield, FileCheck, Search, ArrowRight, CheckCircle2, XCircle, AlertTriangle } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 
