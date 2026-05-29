@@ -36,11 +36,24 @@ export default function Index() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-navy-gradient">
         <div className="absolute inset-0 opacity-20">
-          <img src={heroImage} alt="" className="h-full w-full object-cover" />
+          <motion.img
+            src={heroImage}
+            alt=""
+            className="h-full w-full object-cover"
+            initial={{ scale: 1.1, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1.4, ease: "easeOut" }}
+          />
         </div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 via-transparent to-transparent" />
         <div className="container relative z-10 py-24 md:py-32">
-          <div className="max-w-3xl">
-            <span className="inline-block mb-4 rounded-full bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent">
+          <motion.div
+            className="max-w-3xl"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="inline-block mb-4 rounded-full bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent ring-1 ring-accent/20">
               Trust Infrastructure for Africa
             </span>
             <h1 className="font-serif text-4xl leading-tight text-primary-foreground md:text-6xl md:leading-tight">
@@ -50,14 +63,17 @@ export default function Index() {
               Afrinexus eliminates the biggest risk in cross-border business: trusting people you've never met, with money you can't afford to lose.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-gold-dark shadow-gold">
-                <Link to="/early-access">Apply for Early Access <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-gold-dark shadow-gold group">
+                <Link to="/early-access">
+                  Apply for Early Access
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
+              <Button asChild size="lg" variant="outline" className="border-primary-foreground/20 bg-transparent text-primary-foreground hover:bg-primary-foreground/10">
                 <Link to="/how-it-works">See How It Works</Link>
               </Button>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -71,10 +87,10 @@ export default function Index() {
           />
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {problems.map((p, i) => (
-              <div key={i} className="rounded-lg border bg-card p-6 animate-fade-up" style={{ animationDelay: `${i * 100}ms` }}>
+              <Reveal key={i} delay={i} className="rounded-lg border bg-card p-6 transition-all hover:-translate-y-1 hover:border-accent/40 hover:shadow-gold">
                 <p.icon className="h-8 w-8 text-destructive mb-4" />
                 <p className="font-medium text-card-foreground">{p.text}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -90,14 +106,14 @@ export default function Index() {
           />
           <div className="grid gap-8 md:grid-cols-3">
             {steps.map((s, i) => (
-              <div key={i} className="text-center">
-                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10">
+              <Reveal key={i} delay={i} className="text-center">
+                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 ring-1 ring-accent/20">
                   <s.icon className="h-7 w-7 text-accent" />
                 </div>
                 <div className="mb-1 text-xs font-bold uppercase tracking-widest text-accent">Step {i + 1}</div>
                 <h3 className="font-serif text-xl text-foreground mb-2">{s.title}</h3>
                 <p className="text-muted-foreground">{s.desc}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -111,7 +127,7 @@ export default function Index() {
             title="We Don't Just Connect — We Close"
             description="Platforms that focus on networking leave you with contacts. We leave you with completed deals."
           />
-          <div className="mx-auto max-w-2xl overflow-hidden rounded-lg border">
+          <Reveal className="mx-auto max-w-2xl overflow-hidden rounded-lg border shadow-sm">
             <div className="grid grid-cols-3 bg-muted px-6 py-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               <span>Feature</span>
               <span className="text-center">Afrinexus</span>
@@ -124,13 +140,21 @@ export default function Index() {
                 <span className="flex justify-center"><XCircle className="h-5 w-5 text-muted-foreground/40" /></span>
               </div>
             ))}
-          </div>
+          </Reveal>
         </div>
       </section>
 
+      <FAQ />
+
       {/* CTA */}
       <section className="bg-navy-gradient py-20">
-        <div className="container text-center">
+        <motion.div
+          className="container text-center"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
           <h2 className="font-serif text-3xl text-primary-foreground md:text-4xl">
             Ready to Do Business Without the Risk?
           </h2>
@@ -140,7 +164,7 @@ export default function Index() {
           <Button asChild size="lg" className="mt-8 bg-accent text-accent-foreground hover:bg-gold-dark shadow-gold">
             <Link to="/early-access">Apply for Early Access <ArrowRight className="ml-2 h-4 w-4" /></Link>
           </Button>
-        </div>
+        </motion.div>
       </section>
     </Layout>
   );
