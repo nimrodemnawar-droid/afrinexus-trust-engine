@@ -56,7 +56,11 @@ export default function About() {
           <SectionHeading label="Values" title="What We Stand For" />
           <div className="grid gap-6 md:grid-cols-2 max-w-3xl mx-auto">
             {values.map((v, i) => (
-              <div key={i} className="rounded-lg border bg-card p-6">
+              <div
+                key={i}
+                className="rounded-lg border bg-card p-6 transition-all hover:-translate-y-1 hover:border-accent/40 hover:shadow-gold"
+                style={{ animation: `fade-in 0.6s ease-out ${i * 80}ms both` }}
+              >
                 <h3 className="font-serif text-lg text-foreground mb-2">{v.title}</h3>
                 <p className="text-sm text-muted-foreground">{v.desc}</p>
               </div>
