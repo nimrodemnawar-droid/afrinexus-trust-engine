@@ -50,7 +50,13 @@ export default function EarlyAccess() {
     }
 
     setSubmitting(true);
-    const { error } = await supabase.from("early_access_applications").insert(parsed.data);
+    const { error } = await supabase.from("early_access_applications").insert({
+      full_name: parsed.data.full_name,
+      email: parsed.data.email,
+      company: parsed.data.company,
+      role: parsed.data.role,
+      context: parsed.data.context,
+    });
     setSubmitting(false);
 
     if (error) {
