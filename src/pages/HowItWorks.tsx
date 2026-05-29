@@ -1,5 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { SectionHeading } from "@/components/SectionHeading";
+import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { UserCheck, FileSignature, ShieldCheck, Eye, ArrowRight } from "lucide-react";
@@ -65,9 +66,9 @@ export default function HowItWorks() {
         <div className="container max-w-3xl">
           <div className="space-y-16">
             {phases.map((phase, i) => (
-              <div key={i} className="animate-fade-up" style={{ animationDelay: `${i * 100}ms` }}>
+              <Reveal key={i} delay={i}>
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 ring-1 ring-accent/20">
                     <phase.icon className="h-6 w-6 text-accent" />
                   </div>
                   <h3 className="font-serif text-2xl text-foreground">{phase.title}</h3>
@@ -80,7 +81,7 @@ export default function HowItWorks() {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </Reveal>
             ))}
           </div>
 

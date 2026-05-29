@@ -1,5 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { SectionHeading } from "@/components/SectionHeading";
+import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { CheckCircle2, XCircle, ArrowRight } from "lucide-react";
@@ -76,10 +77,10 @@ export default function WhyAfrinexus() {
         <div className="container">
           <div className="grid gap-8 md:grid-cols-3 max-w-4xl mx-auto">
             {reasons.map((r, i) => (
-              <div key={i} className="rounded-lg border bg-card p-6">
+              <Reveal key={i} delay={i} className="rounded-lg border bg-card p-6 transition-all hover:-translate-y-1 hover:border-accent/40 hover:shadow-gold">
                 <h3 className="font-serif text-xl text-foreground mb-3">{r.title}</h3>
                 <p className="text-muted-foreground text-sm">{r.desc}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
           <div className="mt-12 text-center">

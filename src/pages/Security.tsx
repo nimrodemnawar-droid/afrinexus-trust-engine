@@ -1,5 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { SectionHeading } from "@/components/SectionHeading";
+import { Reveal } from "@/components/Reveal";
 import { Lock, Eye, ShieldCheck, Server, UserX, FileKey } from "lucide-react";
 
 const principles = [
@@ -53,13 +54,13 @@ export default function Security() {
         <div className="container">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
             {principles.map((p, i) => (
-              <div key={i} className="rounded-lg border bg-card p-6 animate-fade-up" style={{ animationDelay: `${i * 80}ms` }}>
+              <Reveal key={i} delay={i} className="rounded-lg border bg-card p-6 transition-all hover:-translate-y-1 hover:border-accent/40 hover:shadow-gold">
                 <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-accent/10 mb-4">
                   <p.icon className="h-5 w-5 text-accent" />
                 </div>
                 <h3 className="font-serif text-lg text-foreground mb-2">{p.title}</h3>
                 <p className="text-sm text-muted-foreground">{p.desc}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>

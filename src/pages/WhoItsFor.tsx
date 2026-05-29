@@ -1,5 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { SectionHeading } from "@/components/SectionHeading";
+import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Building2, Globe, Handshake, ArrowRight } from "lucide-react";
@@ -55,9 +56,9 @@ export default function WhoItsFor() {
         <div className="container max-w-4xl">
           <div className="space-y-12">
             {audiences.map((a, i) => (
-              <div key={i} className="rounded-lg border bg-card p-8 animate-fade-up" style={{ animationDelay: `${i * 100}ms` }}>
+              <Reveal key={i} delay={i} className="rounded-lg border bg-card p-8 transition-all hover:border-accent/40 hover:shadow-gold">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 ring-1 ring-accent/20">
                     <a.icon className="h-6 w-6 text-accent" />
                   </div>
                   <h3 className="font-serif text-2xl text-foreground">{a.title}</h3>
@@ -71,7 +72,7 @@ export default function WhoItsFor() {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </Reveal>
             ))}
           </div>
 
