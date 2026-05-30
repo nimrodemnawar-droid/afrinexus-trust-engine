@@ -5,7 +5,10 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
 import { FAQ } from "@/components/FAQ";
-import { Shield, FileCheck, Search, ArrowRight, CheckCircle2, XCircle, AlertTriangle } from "lucide-react";
+import { Hero3D } from "@/components/Hero3D";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { Marquee } from "@/components/Marquee";
+import { Shield, FileCheck, Search, ArrowRight, CheckCircle2, XCircle, AlertTriangle, Globe2, Lock, Users, Scale } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 
 const problems = [
@@ -46,9 +49,8 @@ export default function Index() {
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 via-transparent to-transparent" />
-        <div className="container relative z-10 py-24 md:py-32">
+        <div className="container relative z-10 grid items-center gap-12 py-24 md:grid-cols-2 md:py-32">
           <motion.div
-            className="max-w-3xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -74,7 +76,39 @@ export default function Index() {
               </Button>
             </div>
           </motion.div>
+          <motion.div
+            className="relative h-[380px] md:h-[480px]"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="absolute inset-0 rounded-full bg-accent/20 blur-3xl" />
+            <div className="relative h-full w-full">
+              <Hero3D />
+            </div>
+          </motion.div>
         </div>
+      </section>
+
+      {/* Stats Marquee */}
+      <section className="border-y bg-card">
+        <Marquee speed={40}>
+          {[
+            { icon: Globe2, label: "Cross-border lanes monitored", value: 12, suffix: "+" },
+            { icon: Users, label: "Verified applicants in pipeline", value: 340, suffix: "+" },
+            { icon: Lock, label: "Encrypted at rest & in transit", value: 100, suffix: "%" },
+            { icon: Scale, label: "Avg. dispute resolution days", value: 7, prefix: "<" },
+            { icon: Shield, label: "Manual vetting checkpoints", value: 9 },
+          ].map((s, i) => (
+            <div key={i} className="flex items-center gap-3 text-foreground">
+              <s.icon className="h-5 w-5 text-accent" />
+              <span className="font-serif text-2xl text-accent">
+                <AnimatedCounter to={s.value} suffix={s.suffix} prefix={s.prefix} />
+              </span>
+              <span className="text-sm uppercase tracking-widest text-muted-foreground">{s.label}</span>
+            </div>
+          ))}
+        </Marquee>
       </section>
 
       {/* Problem */}
