@@ -12,7 +12,6 @@ function Knot() {
   });
   return (
     <Icosahedron ref={ref} args={[1.4, 4]}>
-      {/* @ts-expect-error drei material props */}
       <MeshDistortMaterial
         color="#d4a13a"
         emissive="#3a2810"
