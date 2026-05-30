@@ -5,7 +5,10 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
 import { FAQ } from "@/components/FAQ";
-import { Shield, FileCheck, Search, ArrowRight, CheckCircle2, XCircle, AlertTriangle } from "lucide-react";
+import { Hero3D } from "@/components/Hero3D";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { Marquee } from "@/components/Marquee";
+import { Shield, FileCheck, Search, ArrowRight, CheckCircle2, XCircle, AlertTriangle, Globe2, Lock, Users, Scale } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 
 const problems = [
