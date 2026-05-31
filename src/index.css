@@ -52,6 +52,9 @@
     --navy: 220 45% 14%;
     --navy-light: 220 35% 25%;
     --navy-muted: 220 25% 35%;
+    --emerald: 158 64% 38%;
+    --emerald-light: 158 55% 55%;
+    --coral: 8 78% 62%;
   }
 
   .dark {
