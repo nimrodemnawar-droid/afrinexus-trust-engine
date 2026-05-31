@@ -5,6 +5,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
 import { FAQ } from "@/components/FAQ";
+import { TiltCard } from "@/components/TiltCard";
 import { Hero3D } from "@/components/Hero3D";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { Marquee } from "@/components/Marquee";
@@ -119,11 +120,13 @@ export default function Index() {
             title="Cross-Border Business Is Broken by Trust Gaps"
             description="Kenyan SMEs and diaspora investors lose money, time, and opportunities because there's no infrastructure for trust."
           />
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 [perspective:1200px]">
             {problems.map((p, i) => (
-              <Reveal key={i} delay={i} className="rounded-lg border bg-card p-6 transition-all hover:-translate-y-1 hover:border-accent/40 hover:shadow-gold">
-                <p.icon className="h-8 w-8 text-destructive mb-4" />
-                <p className="font-medium text-card-foreground">{p.text}</p>
+              <Reveal key={i} delay={i}>
+                <TiltCard className="h-full rounded-lg border bg-card p-6 transition-colors hover:border-accent/40 hover:shadow-gold">
+                  <p.icon className="h-8 w-8 text-destructive mb-4" />
+                  <p className="font-medium text-card-foreground">{p.text}</p>
+                </TiltCard>
               </Reveal>
             ))}
           </div>

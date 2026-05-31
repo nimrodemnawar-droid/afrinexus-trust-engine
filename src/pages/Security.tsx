@@ -1,6 +1,9 @@
 import { Layout } from "@/components/Layout";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
+import { Shield3D } from "@/components/Shield3D";
+import { TiltCard } from "@/components/TiltCard";
+import { motion } from "framer-motion";
 import { Lock, Eye, ShieldCheck, Server, UserX, FileKey } from "lucide-react";
 
 const principles = [
@@ -39,27 +42,44 @@ const principles = [
 export default function Security() {
   return (
     <Layout>
-      <section className="bg-navy-gradient py-20">
-        <div className="container">
-          <SectionHeading
-            light
-            label="Security & Trust"
-            title="Your Business Data Is Sacred"
-            description="Afrinexus is built for people who take confidentiality seriously. We do too."
-          />
+      <section className="relative overflow-hidden bg-navy-gradient py-20">
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute -left-20 top-10 h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
+          <div className="absolute -right-10 bottom-0 h-72 w-72 rounded-full bg-emerald/20 blur-3xl" />
+        </div>
+        <div className="container relative z-10 grid items-center gap-10 md:grid-cols-2">
+          <div>
+            <SectionHeading
+              light
+              label="Security & Trust"
+              title="Your Business Data Is Sacred"
+              description="Afrinexus is built for people who take confidentiality seriously. We do too."
+            />
+          </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+            className="relative h-[340px] md:h-[420px]"
+          >
+            <div className="absolute inset-0 rounded-full bg-accent/20 blur-3xl" />
+            <Shield3D />
+          </motion.div>
         </div>
       </section>
 
       <section className="py-20">
         <div className="container">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto [perspective:1200px]">
             {principles.map((p, i) => (
-              <Reveal key={i} delay={i} className="rounded-lg border bg-card p-6 transition-all hover:-translate-y-1 hover:border-accent/40 hover:shadow-gold">
-                <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-accent/10 mb-4">
-                  <p.icon className="h-5 w-5 text-accent" />
-                </div>
-                <h3 className="font-serif text-lg text-foreground mb-2">{p.title}</h3>
-                <p className="text-sm text-muted-foreground">{p.desc}</p>
+              <Reveal key={i} delay={i}>
+                <TiltCard className="h-full rounded-lg border bg-card p-6 transition-colors hover:border-accent/40 hover:shadow-gold">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-accent/10 mb-4">
+                    <p.icon className="h-5 w-5 text-accent" />
+                  </div>
+                  <h3 className="font-serif text-lg text-foreground mb-2">{p.title}</h3>
+                  <p className="text-sm text-muted-foreground">{p.desc}</p>
+                </TiltCard>
               </Reveal>
             ))}
           </div>
