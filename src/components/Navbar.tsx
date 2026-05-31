@@ -9,6 +9,7 @@ const navLinks = [
   { label: "Security", href: "/security" },
   { label: "Who It's For", href: "/who-its-for" },
   { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function Navbar() {
