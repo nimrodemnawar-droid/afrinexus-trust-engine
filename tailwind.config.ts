@@ -61,6 +61,13 @@ export default {
           light: "hsl(var(--navy-light))",
           muted: "hsl(var(--navy-muted))",
         },
+        emerald: {
+          DEFAULT: "hsl(var(--emerald))",
+          light: "hsl(var(--emerald-light))",
+        },
+        coral: {
+          DEFAULT: "hsl(var(--coral))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

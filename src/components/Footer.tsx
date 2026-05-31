@@ -30,6 +30,7 @@ export function Footer() {
             <div className="space-y-2 text-sm text-primary-foreground/70">
               <Link to="/about" className="block hover:text-accent transition-colors">About</Link>
               <Link to="/who-its-for" className="block hover:text-accent transition-colors">Who It's For</Link>
+              <Link to="/contact" className="block hover:text-accent transition-colors">Contact</Link>
               <Link to="/early-access" className="block hover:text-accent transition-colors">Early Access</Link>
             </div>
           </div>
@@ -37,8 +38,9 @@ export function Footer() {
           <div>
             <h4 className="font-sans text-sm font-semibold mb-3 text-accent">Legal</h4>
             <div className="space-y-2 text-sm text-primary-foreground/70">
-              <span className="block">Privacy Policy</span>
-              <span className="block">Terms of Service</span>
+              <Link to="/privacy" className="block hover:text-accent transition-colors">Privacy Policy</Link>
+              <Link to="/terms" className="block hover:text-accent transition-colors">Terms of Service</Link>
+              <Link to="/security" className="block hover:text-accent transition-colors">Security</Link>
             </div>
           </div>
         </div>
