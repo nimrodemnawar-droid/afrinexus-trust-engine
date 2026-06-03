@@ -4,8 +4,9 @@ import { Menu, X, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
+  { label: "Platform", href: "/platform" },
   { label: "How It Works", href: "/how-it-works" },
-  { label: "Why Afrinexus", href: "/why-afrinexus" },
+  { label: "Vision", href: "/vision" },
   { label: "Security", href: "/security" },
   { label: "Who It's For", href: "/who-its-for" },
   { label: "About", href: "/about" },
