@@ -265,38 +265,108 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Quick message CTA */}
-          <div className="mt-16 rounded-xl bg-navy-gradient p-8 text-center animate-fade-up">
-            <h3 className="font-serif text-2xl text-primary-foreground">
-              Send us a quick message
-            </h3>
-            <p className="mt-2 text-primary-foreground/70 max-w-lg mx-auto">
-              Prefer to write? Drop us a line at{" "}
-              <a
-                href="mailto:hello@afrinexus.co"
-                className="text-accent underline underline-offset-4 hover:text-gold-light transition-colors"
-              >
-                hello@afrinexus.co
-              </a>{" "}
-              or reach out on any of our social channels above.
-            </p>
-            <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button
-                asChild
-                className="bg-accent text-accent-foreground hover:bg-gold-dark"
-              >
-                <a href="mailto:hello@afrinexus.co">
-                  <Send className="h-4 w-4 mr-2" />
-                  Email us now
-                </a>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
-              >
-                <Link to="/early-access">Apply for Early Access</Link>
-              </Button>
+          {/* Contact Form */}
+          <div className="mt-16 rounded-xl bg-navy-gradient p-8 md:p-12 animate-fade-up">
+            <div className="max-w-2xl mx-auto">
+              <h3 className="font-serif text-2xl md:text-3xl text-primary-foreground text-center">
+                Send us a message
+              </h3>
+              <p className="mt-2 text-primary-foreground/70 text-center">
+                Every message is read by a real person. We respond within 48 hours.
+              </p>
+
+              {submitted ? (
+                <div className="mt-10 rounded-lg bg-primary-foreground/10 border border-primary-foreground/20 p-8 text-center">
+                  <CheckCircle2 className="mx-auto h-12 w-12 text-accent" />
+                  <h4 className="mt-4 font-serif text-xl text-primary-foreground">Message received</h4>
+                  <p className="mt-2 text-primary-foreground/70">
+                    Thank you. We'll be in touch within 48 hours.
+                  </p>
+                  <Button
+                    onClick={() => setSubmitted(false)}
+                    variant="outline"
+                    className="mt-6 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
+                  >
+                    Send another
+                  </Button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <div>
+                      <Label htmlFor="full_name" className="text-primary-foreground">Your name</Label>
+                      <Input
+                        id="full_name"
+                        name="full_name"
+                        required
+                        maxLength={120}
+                        className="mt-2 bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/40"
+                        placeholder="Jane Doe"
+                      />
+                      {errors.full_name && <p className="mt-1 text-xs text-destructive">{errors.full_name}</p>}
+                    </div>
+                    <div>
+                      <Label htmlFor="email" className="text-primary-foreground">Email</Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        maxLength={255}
+                        className="mt-2 bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/40"
+                        placeholder="you@example.com"
+                      />
+                      {errors.email && <p className="mt-1 text-xs text-destructive">{errors.email}</p>}
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="subject" className="text-primary-foreground">Subject</Label>
+                    <Input
+                      id="subject"
+                      name="subject"
+                      required
+                      maxLength={200}
+                      className="mt-2 bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/40"
+                      placeholder="Partnership enquiry"
+                    />
+                    {errors.subject && <p className="mt-1 text-xs text-destructive">{errors.subject}</p>}
+                  </div>
+                  <div>
+                    <Label htmlFor="message" className="text-primary-foreground">Message</Label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      required
+                      rows={5}
+                      maxLength={4000}
+                      className="mt-2 bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/40"
+                      placeholder="Tell us a bit about what you'd like to discuss…"
+                    />
+                    {errors.message && <p className="mt-1 text-xs text-destructive">{errors.message}</p>}
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                    <Button
+                      type="submit"
+                      disabled={submitting}
+                      className="bg-accent text-accent-foreground hover:bg-gold-dark"
+                    >
+                      {submitting ? (
+                        <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Sending…</>
+                      ) : (
+                        <><Send className="h-4 w-4 mr-2" />Send Message</>
+                      )}
+                    </Button>
+                    <Button
+                      asChild
+                      type="button"
+                      variant="outline"
+                      className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
+                    >
+                      <Link to="/early-access">Apply for Early Access</Link>
+                    </Button>
+                  </div>
+                </form>
+              )}
             </div>
           </div>
         </div>
