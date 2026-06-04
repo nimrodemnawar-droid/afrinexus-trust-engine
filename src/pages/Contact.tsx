@@ -115,6 +115,46 @@ const locations = [
 ];
 
 export default function Contact() {
+  const { toast } = useToast();
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setErrors({});
+    const data = new FormData(e.currentTarget);
+    const payload = {
+      full_name: String(data.get("full_name") ?? ""),
+      email: String(data.get("email") ?? ""),
+      subject: String(data.get("subject") ?? ""),
+      message: String(data.get("message") ?? ""),
+    };
+
+    const parsed = contactSchema.safeParse(payload);
+    if (!parsed.success) {
+      const fieldErrors: Record<string, string> = {};
+      for (const issue of parsed.error.issues) {
+        const key = issue.path[0]?.toString() ?? "form";
+        if (!fieldErrors[key]) fieldErrors[key] = issue.message;
+      }
+      setErrors(fieldErrors);
+      toast({ title: "Please fix the highlighted fields", variant: "destructive" });
+      return;
+    }
+
+    setSubmitting(true);
+    const { error } = await supabase.from("contact_submissions").insert(parsed.data);
+    setSubmitting(false);
+
+    if (error) {
+      toast({ title: "Failed to send", description: error.message, variant: "destructive" });
+      return;
+    }
+    setSubmitted(true);
+    toast({ title: "Message received", description: "We'll respond within 48 hours." });
+  };
+
   return (
     <Layout>
       {/* Hero */}
