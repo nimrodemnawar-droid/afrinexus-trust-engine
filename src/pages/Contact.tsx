@@ -144,7 +144,12 @@ export default function Contact() {
     }
 
     setSubmitting(true);
-    const { error } = await supabase.from("contact_submissions").insert(parsed.data);
+    const { error } = await supabase.from("contact_submissions").insert({
+      full_name: parsed.data.full_name,
+      email: parsed.data.email,
+      subject: parsed.data.subject,
+      message: parsed.data.message,
+    });
     setSubmitting(false);
 
     if (error) {
