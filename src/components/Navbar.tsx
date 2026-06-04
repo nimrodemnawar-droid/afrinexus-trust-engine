@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Shield } from "lucide-react";
+import { Menu, X, Shield, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
 
 const navLinks = [
   { label: "Platform", href: "/platform" },
@@ -15,7 +16,14 @@ const navLinks = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [signedIn, setSignedIn] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => setSignedIn(!!session));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => setSignedIn(!!session));
+    return () => sub.subscription.unsubscribe();
+  }, []);
 
   return (
     <nav className="sticky top-0 z-50 border-b border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -38,6 +46,13 @@ export function Navbar() {
               {l.label}
             </Link>
           ))}
+          <Link
+            to={signedIn ? "/dashboard" : "/auth"}
+            className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-accent transition-colors"
+          >
+            <User className="h-4 w-4" />
+            {signedIn ? "Dashboard" : "Sign In"}
+          </Link>
           <Button asChild className="bg-accent text-accent-foreground hover:bg-gold-dark">
             <Link to="/early-access">Apply for Early Access</Link>
           </Button>
@@ -62,6 +77,13 @@ export function Navbar() {
               {l.label}
             </Link>
           ))}
+          <Link
+            to={signedIn ? "/dashboard" : "/auth"}
+            onClick={() => setOpen(false)}
+            className="block py-3 text-sm font-medium text-muted-foreground hover:text-accent"
+          >
+            {signedIn ? "Dashboard" : "Sign In"}
+          </Link>
           <Button asChild className="mt-4 w-full bg-accent text-accent-foreground hover:bg-gold-dark">
             <Link to="/early-access" onClick={() => setOpen(false)}>Apply for Early Access</Link>
           </Button>
