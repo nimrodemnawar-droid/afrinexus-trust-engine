@@ -13,3 +13,16 @@ export const earlyAccessSchema = z.object({
 });
 
 export type EarlyAccessInput = z.infer<typeof earlyAccessSchema>;
+
+export const contactSchema = z.object({
+  full_name: z.string().trim().min(1, "Name is required").max(120),
+  email: z.string().trim().email("Enter a valid email address").max(255),
+  subject: z.string().trim().min(1, "Subject is required").max(200),
+  message: z
+    .string()
+    .trim()
+    .min(10, "Please share at least a sentence")
+    .max(4000, "Please keep this under 4000 characters"),
+});
+
+export type ContactInput = z.infer<typeof contactSchema>;
