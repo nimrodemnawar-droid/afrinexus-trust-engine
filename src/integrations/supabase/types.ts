@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       contact_submissions: {
         Row: {
+          admin_notes: string | null
           created_at: string
           email: string
           full_name: string
@@ -26,6 +27,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          admin_notes?: string | null
           created_at?: string
           email: string
           full_name: string
@@ -36,6 +38,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          admin_notes?: string | null
           created_at?: string
           email?: string
           full_name?: string
@@ -49,6 +52,7 @@ export type Database = {
       }
       early_access_applications: {
         Row: {
+          admin_notes: string | null
           company: string
           context: string
           created_at: string
@@ -59,6 +63,7 @@ export type Database = {
           status: string
         }
         Insert: {
+          admin_notes?: string | null
           company: string
           context: string
           created_at?: string
@@ -69,6 +74,7 @@ export type Database = {
           status?: string
         }
         Update: {
+          admin_notes?: string | null
           company?: string
           context?: string
           created_at?: string
