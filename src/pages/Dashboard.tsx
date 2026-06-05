@@ -15,7 +15,6 @@ interface Application {
   context: string;
   status: string;
   created_at: string;
-  updated_at: string;
 }
 
 const statusMeta: Record<string, { icon: typeof Clock; label: string; className: string }> = {

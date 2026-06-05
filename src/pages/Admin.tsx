@@ -1,14 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Loader2, LogOut, ShieldAlert, FileText, Mail, Clock, CheckCircle2 } from "lucide-react";
+import {
+  Loader2, LogOut, ShieldAlert, FileText, Mail, Clock, CheckCircle2,
+  Search, Download, Save,
+} from "lucide-react";
 
 interface Application {
   id: string;
@@ -18,6 +23,7 @@ interface Application {
   role: string;
   context: string;
   status: string;
+  admin_notes: string | null;
   created_at: string;
 }
 
@@ -28,11 +34,35 @@ interface ContactMessage {
   subject: string;
   message: string;
   status: string;
+  admin_notes: string | null;
   created_at: string;
 }
 
 const APP_STATUSES = ["pending", "in_progress", "approved", "rejected"];
 const MSG_STATUSES = ["new", "in_progress", "resolved"];
+
+function toCsv(rows: Record<string, any>[]): string {
+  if (rows.length === 0) return "";
+  const headers = Object.keys(rows[0]);
+  const esc = (v: any) => {
+    const s = v === null || v === undefined ? "" : String(v);
+    return `"${s.replace(/"/g, '""').replace(/\r?\n/g, " ")}"`;
+  };
+  return [
+    headers.join(","),
+    ...rows.map((r) => headers.map((h) => esc(r[h])).join(",")),
+  ].join("\n");
+}
+
+function downloadCsv(filename: string, csv: string) {
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
 
 export default function Admin() {
   const [loading, setLoading] = useState(true);
@@ -42,6 +72,14 @@ export default function Admin() {
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [selectedApp, setSelectedApp] = useState<Application | null>(null);
   const [selectedMsg, setSelectedMsg] = useState<ContactMessage | null>(null);
+  const [noteDraft, setNoteDraft] = useState("");
+  const [savingNote, setSavingNote] = useState(false);
+
+  const [appSearch, setAppSearch] = useState("");
+  const [appStatusFilter, setAppStatusFilter] = useState<string>("all");
+  const [msgSearch, setMsgSearch] = useState("");
+  const [msgStatusFilter, setMsgStatusFilter] = useState<string>("all");
+
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -110,6 +148,65 @@ export default function Admin() {
     toast({ title: "Status updated" });
   };
 
+  const saveNote = async (kind: "app" | "msg", id: string) => {
+    setSavingNote(true);
+    const table = kind === "app" ? "early_access_applications" : "contact_submissions";
+    const { error } = await supabase.from(table).update({ admin_notes: noteDraft }).eq("id", id);
+    setSavingNote(false);
+    if (error) {
+      toast({ title: "Failed to save note", description: error.message, variant: "destructive" });
+      return;
+    }
+    if (kind === "app") {
+      setApps((prev) => prev.map((a) => (a.id === id ? { ...a, admin_notes: noteDraft } : a)));
+      if (selectedApp?.id === id) setSelectedApp({ ...selectedApp, admin_notes: noteDraft });
+    } else {
+      setMsgs((prev) => prev.map((m) => (m.id === id ? { ...m, admin_notes: noteDraft } : m)));
+      if (selectedMsg?.id === id) setSelectedMsg({ ...selectedMsg, admin_notes: noteDraft });
+    }
+    toast({ title: "Note saved" });
+  };
+
+  const openApp = (a: Application) => {
+    setSelectedApp(a);
+    setNoteDraft(a.admin_notes ?? "");
+  };
+  const openMsg = (m: ContactMessage) => {
+    setSelectedMsg(m);
+    setNoteDraft(m.admin_notes ?? "");
+  };
+
+  const filteredApps = useMemo(() => {
+    const q = appSearch.trim().toLowerCase();
+    return apps.filter((a) => {
+      if (appStatusFilter !== "all" && a.status !== appStatusFilter) return false;
+      if (!q) return true;
+      return [a.full_name, a.email, a.company, a.role, a.context]
+        .some((f) => f?.toLowerCase().includes(q));
+    });
+  }, [apps, appSearch, appStatusFilter]);
+
+  const filteredMsgs = useMemo(() => {
+    const q = msgSearch.trim().toLowerCase();
+    return msgs.filter((m) => {
+      if (msgStatusFilter !== "all" && m.status !== msgStatusFilter) return false;
+      if (!q) return true;
+      return [m.full_name, m.email, m.subject, m.message]
+        .some((f) => f?.toLowerCase().includes(q));
+    });
+  }, [msgs, msgSearch, msgStatusFilter]);
+
+  const exportApps = () => {
+    const rows = filteredApps.map(({ id, full_name, email, company, role, status, context, admin_notes, created_at }) =>
+      ({ id, full_name, email, company, role, status, context, admin_notes, created_at }));
+    downloadCsv(`applications-${new Date().toISOString().slice(0, 10)}.csv`, toCsv(rows));
+  };
+  const exportMsgs = () => {
+    const rows = filteredMsgs.map(({ id, full_name, email, subject, message, status, admin_notes, created_at }) =>
+      ({ id, full_name, email, subject, message, status, admin_notes, created_at }));
+    downloadCsv(`messages-${new Date().toISOString().slice(0, 10)}.csv`, toCsv(rows));
+  };
+
   if (loading) {
     return (
       <Layout>
@@ -156,7 +253,6 @@ export default function Admin() {
           </Button>
         </div>
 
-        {/* Stats */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-8">
           <StatCard icon={FileText} label="Total Applications" value={apps.length} />
           <StatCard icon={Clock} label="Pending Review" value={pendingApps} />
@@ -170,7 +266,30 @@ export default function Admin() {
             <TabsTrigger value="messages">Contact Messages ({msgs.length})</TabsTrigger>
           </TabsList>
 
+          {/* Applications */}
           <TabsContent value="applications" className="mt-6">
+            <div className="flex flex-col sm:flex-row gap-3 mb-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search name, email, company, role, context..."
+                  value={appSearch}
+                  onChange={(e) => setAppSearch(e.target.value)}
+                  className="pl-9"
+                />
+              </div>
+              <Select value={appStatusFilter} onValueChange={setAppStatusFilter}>
+                <SelectTrigger className="w-full sm:w-48"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All statuses</SelectItem>
+                  {APP_STATUSES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                </SelectContent>
+              </Select>
+              <Button onClick={exportApps} variant="outline" disabled={filteredApps.length === 0}>
+                <Download className="mr-2 h-4 w-4" /> Export CSV
+              </Button>
+            </div>
+
             <div className="rounded-lg border bg-card overflow-hidden">
               <Table>
                 <TableHeader>
@@ -184,15 +303,15 @@ export default function Admin() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {apps.length === 0 && (
+                  {filteredApps.length === 0 && (
                     <TableRow>
                       <TableCell colSpan={6} className="text-center text-muted-foreground py-8">
-                        No applications yet.
+                        No applications match your filters.
                       </TableCell>
                     </TableRow>
                   )}
-                  {apps.map((a) => (
-                    <TableRow key={a.id} className="cursor-pointer" onClick={() => setSelectedApp(a)}>
+                  {filteredApps.map((a) => (
+                    <TableRow key={a.id} className="cursor-pointer" onClick={() => openApp(a)}>
                       <TableCell className="font-medium">{a.full_name}</TableCell>
                       <TableCell>{a.email}</TableCell>
                       <TableCell>{a.company}</TableCell>
@@ -204,9 +323,35 @@ export default function Admin() {
                 </TableBody>
               </Table>
             </div>
+            <p className="text-xs text-muted-foreground mt-2">
+              Showing {filteredApps.length} of {apps.length}
+            </p>
           </TabsContent>
 
+          {/* Messages */}
           <TabsContent value="messages" className="mt-6">
+            <div className="flex flex-col sm:flex-row gap-3 mb-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search name, email, subject, message..."
+                  value={msgSearch}
+                  onChange={(e) => setMsgSearch(e.target.value)}
+                  className="pl-9"
+                />
+              </div>
+              <Select value={msgStatusFilter} onValueChange={setMsgStatusFilter}>
+                <SelectTrigger className="w-full sm:w-48"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All statuses</SelectItem>
+                  {MSG_STATUSES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                </SelectContent>
+              </Select>
+              <Button onClick={exportMsgs} variant="outline" disabled={filteredMsgs.length === 0}>
+                <Download className="mr-2 h-4 w-4" /> Export CSV
+              </Button>
+            </div>
+
             <div className="rounded-lg border bg-card overflow-hidden">
               <Table>
                 <TableHeader>
@@ -219,15 +364,15 @@ export default function Admin() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {msgs.length === 0 && (
+                  {filteredMsgs.length === 0 && (
                     <TableRow>
                       <TableCell colSpan={5} className="text-center text-muted-foreground py-8">
-                        No messages yet.
+                        No messages match your filters.
                       </TableCell>
                     </TableRow>
                   )}
-                  {msgs.map((m) => (
-                    <TableRow key={m.id} className="cursor-pointer" onClick={() => setSelectedMsg(m)}>
+                  {filteredMsgs.map((m) => (
+                    <TableRow key={m.id} className="cursor-pointer" onClick={() => openMsg(m)}>
                       <TableCell className="font-medium">{m.full_name}</TableCell>
                       <TableCell>{m.email}</TableCell>
                       <TableCell className="max-w-xs truncate">{m.subject}</TableCell>
@@ -238,6 +383,9 @@ export default function Admin() {
                 </TableBody>
               </Table>
             </div>
+            <p className="text-xs text-muted-foreground mt-2">
+              Showing {filteredMsgs.length} of {msgs.length}
+            </p>
           </TabsContent>
         </Tabs>
 
@@ -262,6 +410,23 @@ export default function Admin() {
               <div>
                 <dt className="font-semibold">Context</dt>
                 <dd className="whitespace-pre-wrap mt-1">{selectedApp.context}</dd>
+              </div>
+              <div>
+                <dt className="font-semibold mb-1">Internal admin notes</dt>
+                <Textarea
+                  value={noteDraft}
+                  onChange={(e) => setNoteDraft(e.target.value)}
+                  placeholder="Private notes (calls, follow-ups, decisions)..."
+                  rows={4}
+                />
+                <Button
+                  onClick={() => saveNote("app", selectedApp.id)}
+                  disabled={savingNote}
+                  size="sm"
+                  className="mt-2 bg-accent text-accent-foreground hover:bg-gold-dark"
+                >
+                  <Save className="mr-2 h-3 w-3" /> {savingNote ? "Saving..." : "Save note"}
+                </Button>
               </div>
             </dl>
             <Button onClick={() => setSelectedApp(null)} variant="outline" className="mt-6">Close</Button>
@@ -289,6 +454,23 @@ export default function Admin() {
               <div>
                 <dt className="font-semibold">Message</dt>
                 <dd className="whitespace-pre-wrap mt-1">{selectedMsg.message}</dd>
+              </div>
+              <div>
+                <dt className="font-semibold mb-1">Internal admin notes</dt>
+                <Textarea
+                  value={noteDraft}
+                  onChange={(e) => setNoteDraft(e.target.value)}
+                  placeholder="Private notes..."
+                  rows={4}
+                />
+                <Button
+                  onClick={() => saveNote("msg", selectedMsg.id)}
+                  disabled={savingNote}
+                  size="sm"
+                  className="mt-2 bg-accent text-accent-foreground hover:bg-gold-dark"
+                >
+                  <Save className="mr-2 h-3 w-3" /> {savingNote ? "Saving..." : "Save note"}
+                </Button>
               </div>
             </dl>
             <div className="mt-6 flex gap-2">
@@ -331,7 +513,7 @@ function StatusBadge({ status }: { status: string }) {
 function Modal({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 p-4" onClick={onClose}>
-      <div className="max-w-2xl w-full rounded-lg border bg-card p-8 max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+      <div className="max-w-2xl w-full rounded-lg border bg-card p-8 max-h-[85vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
     </div>
