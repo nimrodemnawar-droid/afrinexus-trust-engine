@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
+import { SEO } from "@/components/SEO";
 import { SectionHeading } from "@/components/SectionHeading";
 import {
   Mail,
@@ -162,6 +163,7 @@ export default function Contact() {
 
   return (
     <Layout>
+      <SEO title="Contact Afrinexus" description="Reach the Afrinexus team for partnership, press, or early-access enquiries. We respond within 48 hours." />
       {/* Hero */}
       <section className="bg-navy-gradient py-20">
         <div className="container">

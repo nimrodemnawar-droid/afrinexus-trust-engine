@@ -1,4 +1,5 @@
 import { Layout } from "@/components/Layout";
+import { SEO } from "@/components/SEO";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -22,6 +23,7 @@ const futureFeatures = [
 export default function About() {
   return (
     <Layout>
+      <SEO title="About Afrinexus — Our Mission" description="Afrinexus exists to make cross-border deals safe, documented, and enforceable for Kenyan SMEs and the global diaspora." />
       <section className="bg-navy-gradient py-20">
         <div className="container">
           <SectionHeading
