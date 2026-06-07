@@ -1,0 +1,1 @@
+ALTER TABLE public.early_access_applications ADD COLUMN IF NOT EXISTS country text;
