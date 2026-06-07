@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
+import { SEO } from "@/components/SEO";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
@@ -37,6 +38,7 @@ const comparisons = [
 export default function Index() {
   return (
     <Layout>
+      <SEO title="Afrinexus — Trust Infrastructure for Kenya–Diaspora Deals" description="Vetted parties, documented agreements, and verifiable execution for cross-border deals between Kenyan SMEs and the diaspora." />
       {/* Hero */}
       <section className="relative overflow-hidden bg-navy-gradient">
         <div className="absolute inset-0 opacity-20">

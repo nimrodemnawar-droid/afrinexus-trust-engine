@@ -1,4 +1,5 @@
 import { Layout } from "@/components/Layout";
+import { SEO } from "@/components/SEO";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
@@ -35,6 +36,7 @@ const reasons = [
 export default function WhyAfrinexus() {
   return (
     <Layout>
+      <SEO title="Why Afrinexus — The Trust Layer for Cross-Border Deals" description="Why Kenyan SMEs and diaspora investors trust Afrinexus to remove fraud, document deals, and protect both sides." />
       <section className="bg-navy-gradient py-20">
         <div className="container">
           <SectionHeading

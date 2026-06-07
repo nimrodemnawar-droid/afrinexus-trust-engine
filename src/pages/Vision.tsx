@@ -1,4 +1,5 @@
 import { Layout } from "@/components/Layout";
+import { SEO } from "@/components/SEO";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
@@ -101,6 +102,7 @@ const partners = [
 export default function Vision() {
   return (
     <Layout>
+      <SEO title="Vision — Afrinexus" description="Building the trust infrastructure that unlocks billions in cross-border deals between Africa and its diaspora." />
       {/* Hero */}
       <section className="bg-navy-gradient py-20">
         <div className="container">

@@ -1,4 +1,5 @@
 import { Layout } from "@/components/Layout";
+import { SEO } from "@/components/SEO";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
 import { Shield3D } from "@/components/Shield3D";
@@ -42,6 +43,7 @@ const principles = [
 export default function Security() {
   return (
     <Layout>
+      <SEO title="Security — Afrinexus" description="How Afrinexus protects your identity, agreements, and deal data with privacy-first architecture and strict access controls." />
       <section className="relative overflow-hidden bg-navy-gradient py-20">
         <div className="absolute inset-0 opacity-30">
           <div className="absolute -left-20 top-10 h-72 w-72 rounded-full bg-accent/20 blur-3xl" />

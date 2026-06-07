@@ -1,4 +1,5 @@
 import { Layout } from "@/components/Layout";
+import { SEO } from "@/components/SEO";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
@@ -51,6 +52,7 @@ const phases = [
 export default function HowItWorks() {
   return (
     <Layout>
+      <SEO title="How It Works — Afrinexus" description="See how Afrinexus vets parties, documents agreements, and creates a verifiable audit trail for every cross-border deal." />
       <section className="bg-navy-gradient py-20">
         <div className="container">
           <SectionHeading

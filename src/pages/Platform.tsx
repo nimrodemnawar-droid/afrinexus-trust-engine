@@ -1,4 +1,5 @@
 import { Layout } from "@/components/Layout";
+import { SEO } from "@/components/SEO";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
@@ -93,6 +94,7 @@ const pillars = [
 export default function Platform() {
   return (
     <Layout>
+      <SEO title="Platform — Afrinexus" description="The Afrinexus platform: identity verification, deal documentation, audit trails, and dispute-ready records." />
       {/* Hero */}
       <section className="bg-navy-gradient py-20">
         <div className="container">
