@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { earlyAccessSchema } from "@/lib/validation";
 import { Reveal } from "@/components/Reveal";
+import { SEO } from "@/components/SEO";
 import { motion } from "framer-motion";
 
 const expectations = [
@@ -34,6 +35,7 @@ export default function EarlyAccess() {
       email: String(data.get("email") ?? ""),
       company: String(data.get("company") ?? ""),
       role: String(data.get("role") ?? ""),
+      country: String(data.get("country") ?? ""),
       context: String(data.get("context") ?? ""),
     };
 
@@ -55,6 +57,7 @@ export default function EarlyAccess() {
       email: parsed.data.email,
       company: parsed.data.company,
       role: parsed.data.role,
+      country: parsed.data.country,
       context: parsed.data.context,
     });
     setSubmitting(false);
@@ -78,6 +81,10 @@ export default function EarlyAccess() {
 
   return (
     <Layout>
+      <SEO
+        title="Apply for Early Access — Afrinexus"
+        description="Apply to join Afrinexus. Every applicant is manually vetted to build trust for cross-border Kenya–diaspora deals."
+      />
       <section className="bg-navy-gradient py-20">
         <div className="container">
           <SectionHeading
@@ -157,6 +164,11 @@ export default function EarlyAccess() {
                     <Label htmlFor="role">Your Role</Label>
                     <Input id="role" name="role" required maxLength={120} placeholder="e.g. Founder, Director, Investor" className="mt-1.5" />
                     {errors.role && <p className="mt-1 text-xs text-destructive">{errors.role}</p>}
+                  </div>
+                  <div>
+                    <Label htmlFor="country">Country / Region</Label>
+                    <Input id="country" name="country" required maxLength={80} placeholder="e.g. Kenya, United Kingdom, UAE" className="mt-1.5" />
+                    {errors.country && <p className="mt-1 text-xs text-destructive">{errors.country}</p>}
                   </div>
                   <div>
                     <Label htmlFor="context">Tell us about your cross-border needs</Label>
