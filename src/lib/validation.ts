@@ -5,6 +5,7 @@ export const earlyAccessSchema = z.object({
   email: z.string().trim().email("Enter a valid email address").max(255),
   company: z.string().trim().min(1, "Company is required").max(160),
   role: z.string().trim().min(1, "Role is required").max(120),
+  country: z.string().trim().min(1, "Country is required").max(80),
   context: z
     .string()
     .trim()
