@@ -400,6 +400,7 @@ export default function Admin() {
             <dl className="mt-6 space-y-3 text-sm">
               <Row label="Company" value={selectedApp.company} />
               <Row label="Role" value={selectedApp.role} />
+              <Row label="Country" value={selectedApp.country ?? "—"} />
               <Row label="Submitted" value={new Date(selectedApp.created_at).toLocaleString()} />
               <div>
                 <dt className="font-semibold mb-1">Status</dt>
