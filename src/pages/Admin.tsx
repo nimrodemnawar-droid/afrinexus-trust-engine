@@ -21,6 +21,7 @@ interface Application {
   email: string;
   company: string;
   role: string;
+  country: string | null;
   context: string;
   status: string;
   admin_notes: string | null;
@@ -181,7 +182,7 @@ export default function Admin() {
     return apps.filter((a) => {
       if (appStatusFilter !== "all" && a.status !== appStatusFilter) return false;
       if (!q) return true;
-      return [a.full_name, a.email, a.company, a.role, a.context]
+      return [a.full_name, a.email, a.company, a.role, a.country, a.context]
         .some((f) => f?.toLowerCase().includes(q));
     });
   }, [apps, appSearch, appStatusFilter]);
@@ -197,8 +198,8 @@ export default function Admin() {
   }, [msgs, msgSearch, msgStatusFilter]);
 
   const exportApps = () => {
-    const rows = filteredApps.map(({ id, full_name, email, company, role, status, context, admin_notes, created_at }) =>
-      ({ id, full_name, email, company, role, status, context, admin_notes, created_at }));
+    const rows = filteredApps.map(({ id, full_name, email, company, role, country, status, context, admin_notes, created_at }) =>
+      ({ id, full_name, email, company, role, country, status, context, admin_notes, created_at }));
     downloadCsv(`applications-${new Date().toISOString().slice(0, 10)}.csv`, toCsv(rows));
   };
   const exportMsgs = () => {
@@ -294,10 +295,11 @@ export default function Admin() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Name</TableHead>
+                  <TableHead>Name</TableHead>
                     <TableHead>Email</TableHead>
                     <TableHead>Company</TableHead>
                     <TableHead>Role</TableHead>
+                    <TableHead>Country</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Submitted</TableHead>
                   </TableRow>
@@ -305,7 +307,7 @@ export default function Admin() {
                 <TableBody>
                   {filteredApps.length === 0 && (
                     <TableRow>
-                      <TableCell colSpan={6} className="text-center text-muted-foreground py-8">
+                      <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
                         No applications match your filters.
                       </TableCell>
                     </TableRow>
@@ -316,6 +318,7 @@ export default function Admin() {
                       <TableCell>{a.email}</TableCell>
                       <TableCell>{a.company}</TableCell>
                       <TableCell>{a.role}</TableCell>
+                      <TableCell>{a.country ?? "—"}</TableCell>
                       <TableCell><StatusBadge status={a.status} /></TableCell>
                       <TableCell>{new Date(a.created_at).toLocaleDateString()}</TableCell>
                     </TableRow>
