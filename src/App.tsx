@@ -12,6 +12,7 @@ import EarlyAccess from "./pages/EarlyAccess";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Platform from "./pages/Platform";
+import Pricing from "./pages/Pricing";
 import Vision from "./pages/Vision";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
