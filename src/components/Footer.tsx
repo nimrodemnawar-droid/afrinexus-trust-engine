@@ -20,6 +20,7 @@ export function Footer() {
             <h4 className="font-sans text-sm font-semibold mb-3 text-accent">Platform</h4>
             <div className="space-y-2 text-sm text-primary-foreground/70">
               <Link to="/how-it-works" className="block hover:text-accent transition-colors">How It Works</Link>
+              <Link to="/pricing" className="block hover:text-accent transition-colors">Pricing</Link>
               <Link to="/why-afrinexus" className="block hover:text-accent transition-colors">Why Afrinexus</Link>
               <Link to="/security" className="block hover:text-accent transition-colors">Security & Trust</Link>
             </div>

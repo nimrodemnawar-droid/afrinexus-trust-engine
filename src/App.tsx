@@ -12,6 +12,7 @@ import EarlyAccess from "./pages/EarlyAccess";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Platform from "./pages/Platform";
+import Pricing from "./pages/Pricing";
 import Vision from "./pages/Vision";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -38,6 +39,7 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/platform" element={<Platform />} />
+          <Route path="/pricing" element={<Pricing />} />
           <Route path="/vision" element={<Vision />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
