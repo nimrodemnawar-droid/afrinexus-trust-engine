@@ -94,7 +94,42 @@ export default function WhoItsFor() {
             ))}
           </div>
 
-          <div className="mt-12 text-center">
+          <div className="mt-20">
+            <SectionHeading
+              label="Trade Roles"
+              title="Who Afrinexus Serves in Trade"
+              description="From producers to logistics — every role in a cross-border deal has a home on Afrinexus."
+            />
+            <div className="mt-10 grid gap-6 sm:grid-cols-2">
+              {tradeRoles.map((r, i) => (
+                <Reveal key={i} delay={i} className="rounded-lg border bg-card p-6 hover:border-accent/40 hover:shadow-gold transition-all">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-accent/10 ring-1 ring-accent/20 mb-4">
+                    <r.icon className="h-5 w-5 text-accent" />
+                  </div>
+                  <h4 className="font-serif text-lg text-foreground">{r.title}</h4>
+                  <p className="mt-2 text-sm text-muted-foreground">{r.desc}</p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-20">
+            <SectionHeading
+              label="Target Industries"
+              title="Optimised for Physical Goods Across Africa"
+              description="Our platform is built for the sectors driving continental trade."
+            />
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {industries.map((ind, i) => (
+                <div key={i} className="flex items-center gap-3 rounded-lg border bg-card p-4 hover:border-accent/40 transition-colors">
+                  <ind.icon className="h-5 w-5 text-accent shrink-0" />
+                  <span className="font-sans text-sm font-medium text-foreground">{ind.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-16 text-center">
             <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-gold-dark">
               <Link to="/early-access">Apply for Early Access <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
