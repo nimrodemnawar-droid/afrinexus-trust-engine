@@ -4,7 +4,23 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Building2, Globe, Handshake, ArrowRight } from "lucide-react";
+import { Building2, Globe, Handshake, ArrowRight, Package, ShoppingCart, Truck, Leaf, Wheat, Factory, Boxes, Sun } from "lucide-react";
+
+const tradeRoles = [
+  { icon: Package, title: "Exporters & Manufacturers", desc: "Seeking new markets without payment risks." },
+  { icon: ShoppingCart, title: "Distributors & Buyers", desc: "Looking for reliable sourcing and guaranteed delivery." },
+  { icon: Truck, title: "Logistics Operators", desc: "Wanting steady contracts with guaranteed freight payments." },
+  { icon: Leaf, title: "Green Entrepreneurs", desc: "Scaling sustainable products across the continent." },
+];
+
+const industries = [
+  { icon: Package, label: "FMCG" },
+  { icon: Wheat, label: "Agriculture & Agri-processing" },
+  { icon: Factory, label: "Manufacturing" },
+  { icon: Boxes, label: "Commodities" },
+  { icon: Sun, label: "Green & Sustainable Products" },
+  { icon: Truck, label: "Transport & Logistics" },
+];
 
 const audiences = [
   {
