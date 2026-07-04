@@ -45,8 +45,13 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-primary-foreground/10 pt-6 text-center text-xs text-primary-foreground/50">
-          © {new Date().getFullYear()} Afrinexus. All rights reserved.
+        <div className="mt-10 border-t border-primary-foreground/10 pt-6 text-center">
+          <p className="font-serif text-sm italic text-accent/90">
+            Trade With Trust. Trade With Afrinexus.
+          </p>
+          <p className="mt-2 text-xs text-primary-foreground/50">
+            © {new Date().getFullYear()} Afrinexus · Nairobi, Kenya · hello@afrinexus.co
+          </p>
         </div>
       </div>
     </footer>
