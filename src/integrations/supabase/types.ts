@@ -113,6 +113,93 @@ export type Database = {
         }
         Relationships: []
       }
+      platform_fees: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          label: string
+          published: boolean
+          sort_order: number
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          label: string
+          published?: boolean
+          sort_order?: number
+          updated_at?: string
+          value: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          label?: string
+          published?: boolean
+          sort_order?: number
+          updated_at?: string
+          value?: string
+        }
+        Relationships: []
+      }
+      pricing_plans: {
+        Row: {
+          badge: string | null
+          cadence: string
+          created_at: string
+          cta_href: string
+          cta_label: string
+          escrow_rate: string
+          features: string[]
+          highlighted: boolean
+          id: string
+          name: string
+          price: string
+          published: boolean
+          sort_order: number
+          tagline: string
+          updated_at: string
+        }
+        Insert: {
+          badge?: string | null
+          cadence?: string
+          created_at?: string
+          cta_href?: string
+          cta_label?: string
+          escrow_rate?: string
+          features?: string[]
+          highlighted?: boolean
+          id?: string
+          name: string
+          price?: string
+          published?: boolean
+          sort_order?: number
+          tagline?: string
+          updated_at?: string
+        }
+        Update: {
+          badge?: string | null
+          cadence?: string
+          created_at?: string
+          cta_href?: string
+          cta_label?: string
+          escrow_rate?: string
+          features?: string[]
+          highlighted?: boolean
+          id?: string
+          name?: string
+          price?: string
+          published?: boolean
+          sort_order?: number
+          tagline?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
