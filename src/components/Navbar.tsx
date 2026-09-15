@@ -12,6 +12,7 @@ const navLinks = [
   { label: "Security", href: "/security" },
   { label: "Who It's For", href: "/who-its-for" },
   { label: "About", href: "/about" },
+  { label: "Ask Nexus", href: "/chat" },
   { label: "Contact", href: "/contact" },
 ];
 

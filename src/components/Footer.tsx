@@ -32,6 +32,7 @@ export function Footer() {
               <Link to="/about" className="block hover:text-accent transition-colors">About</Link>
               <Link to="/who-its-for" className="block hover:text-accent transition-colors">Who It's For</Link>
               <Link to="/contact" className="block hover:text-accent transition-colors">Contact</Link>
+              <Link to="/chat" className="block hover:text-accent transition-colors">Ask Nexus</Link>
               <Link to="/early-access" className="block hover:text-accent transition-colors">Early Access</Link>
             </div>
           </div>
