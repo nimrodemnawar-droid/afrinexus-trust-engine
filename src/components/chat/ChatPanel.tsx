@@ -108,11 +108,11 @@ export function ChatPanel({ className = "" }: { className?: string }) {
     setInput("");
     void save("user", value);
     void sendMessage({ text: value });
-    textareaRef.current?.focus();
+    focusComposer();
   };
 
   useEffect(() => {
-    if (!busy) textareaRef.current?.focus();
+    if (!busy) composerRef.current?.querySelector("textarea")?.focus();
   }, [busy]);
 
   const clear = async () => {
@@ -161,7 +161,7 @@ export function ChatPanel({ className = "" }: { className?: string }) {
         <ConversationScrollButton />
       </Conversation>
 
-      <div className="border-t p-3">
+      <div className="border-t p-3" ref={composerRef}>
         <PromptInput
           onSubmit={(_, e) => {
             e.preventDefault();
@@ -169,7 +169,6 @@ export function ChatPanel({ className = "" }: { className?: string }) {
           }}
         >
           <PromptInputTextarea
-            ref={textareaRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask Nexus about trust, deals or the platform…"
