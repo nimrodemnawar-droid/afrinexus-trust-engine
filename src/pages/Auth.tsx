@@ -24,6 +24,26 @@ export default function Auth() {
     });
   }, [navigate]);
 
+  const [googleLoading, setGoogleLoading] = useState(false);
+
+  const handleGoogle = async () => {
+    setGoogleLoading(true);
+    const result = await lovable.auth.signInWithOAuth("google", {
+      redirect_uri: window.location.origin,
+    });
+    setGoogleLoading(false);
+    if (result.error) {
+      toast({
+        title: "Google sign-in failed",
+        description: result.error.message ?? "Please try again.",
+        variant: "destructive",
+      });
+      return;
+    }
+    if (result.redirected) return; // Browser is heading to Google
+    navigate("/dashboard");
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
