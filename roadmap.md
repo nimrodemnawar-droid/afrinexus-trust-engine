@@ -1,0 +1,6 @@
+- [ ] Update Contact details
+- [ ] Replace public pricing and connect it to editable backend data
+- [ ] Add the full step-by-step Afrinexus trade flow
+- [ ] Finish admin pricing and fee management
+- [ ] Redesign the signed-in dashboard from the supplied reference
+- [ ] Verify type checks, build logs, and key screens
