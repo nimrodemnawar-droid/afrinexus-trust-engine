@@ -9,12 +9,6 @@ import {
   Shield,
   Phone,
   Linkedin,
-  Twitter,
-  Instagram,
-  Facebook,
-  Globe,
-  Building2,
-  Navigation,
   Send,
   MessageCircle,
   Loader2,
@@ -33,19 +27,19 @@ const contactChannels = [
   {
     icon: Mail,
     title: "General Enquiries",
-    value: "hello@afrinexus.co",
+    value: "afrinexus91@gmail.com",
     desc: "Partnerships, press, and general questions.",
   },
   {
     icon: Shield,
     title: "Security & Privacy",
-    value: "privacy@afrinexus.co",
+    value: "afrinexus91@gmail.com",
     desc: "Data requests and security disclosures.",
   },
   {
     icon: Phone,
     title: "Phone",
-    value: "+254 700 123 456",
+    value: "0708859780",
     desc: "Mon–Fri, 9:00 AM – 6:00 PM EAT.",
   },
   {
@@ -60,58 +54,25 @@ const socials = [
   {
     icon: Linkedin,
     label: "LinkedIn",
-    handle: "@afrinexus",
-    href: "https://linkedin.com/company/afrinexus",
-    color: "hover:text-[#0077B5]",
-  },
-  {
-    icon: Twitter,
-    label: "Twitter / X",
-    handle: "@afrinexus",
-    href: "https://twitter.com/afrinexus",
-    color: "hover:text-sky-400",
-  },
-  {
-    icon: Instagram,
-    label: "Instagram",
-    handle: "@afrinexus",
-    href: "https://instagram.com/afrinexus",
-    color: "hover:text-pink-500",
-  },
-  {
-    icon: Facebook,
-    label: "Facebook",
-    handle: "@afrinexus",
-    href: "https://facebook.com/afrinexus",
-    color: "hover:text-blue-600",
+    handle: "Leroy Rutto",
+    href: "https://www.linkedin.com/in/leroy-rutto-1aa330437?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    color: "hover:text-accent",
   },
   {
     icon: MessageCircle,
     label: "WhatsApp",
-    handle: "+254 700 123 456",
-    href: "https://wa.me/254700123456",
+    handle: "0708859780",
+    href: "https://wa.me/254708859780",
     color: "hover:text-emerald",
   },
 ];
 
 const locations = [
   {
-    city: "Nairobi, Kenya",
-    address: "One Africa Place, Tower C, 7th Floor\nWestlands, Nairobi 00100",
-    role: "Global Headquarters",
-    icon: Building2,
-  },
-  {
-    city: "London, United Kingdom",
-    address: "Level 39, One Canada Square\nCanary Wharf, London E14 5AB",
-    role: "European Operations",
-    icon: Globe,
-  },
-  {
-    city: "New York, USA",
-    address: "Coming Soon – Remote first\nDiaspora outreach hub launching Q3 2025",
-    role: "North America Expansion",
-    icon: Navigation,
+    city: "Kenya",
+    address: "Afrinexus operates remotely while building verified trade corridors across Kenya and the diaspora.",
+    role: "Primary market",
+    icon: MapPin,
   },
 ];
 
@@ -208,7 +169,7 @@ export default function Contact() {
               insights from the Afrinexus team.
             </p>
 
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 sm:grid-cols-2 max-w-2xl mx-auto">
               {socials.map((s, i) => (
                 <a
                   key={i}
@@ -243,7 +204,7 @@ export default function Contact() {
               corridors.
             </p>
 
-            <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            <div className="mt-10 grid gap-6 max-w-xl mx-auto">
               {locations.map((loc, i) => (
                 <div
                   key={i}
