@@ -86,6 +86,17 @@ export default function HowItWorks() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="border-t bg-muted/30 py-20">
+        <div className="container">
+          <SectionHeading
+            label="End to end"
+            title="The Afrinexus Trade Flow"
+            description="Every transaction follows the same documented path — from discovery to delivery, payment and repeat trade."
+          />
+          <TradeJourney />
 
           <div className="mt-16 text-center">
             <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-gold-dark">
