@@ -4,6 +4,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { TradeJourney } from "@/components/TradeJourney";
 import { UserCheck, FileSignature, ShieldCheck, Eye, ArrowRight } from "lucide-react";
 
 const phases = [
