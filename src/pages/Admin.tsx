@@ -10,6 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { PricingManager } from "@/components/admin/PricingManager";
 import {
   Loader2, LogOut, ShieldAlert, FileText, Mail, Clock, CheckCircle2,
   Search, Download, Save,
@@ -265,6 +266,7 @@ export default function Admin() {
           <TabsList>
             <TabsTrigger value="applications">Applications ({apps.length})</TabsTrigger>
             <TabsTrigger value="messages">Contact Messages ({msgs.length})</TabsTrigger>
+            <TabsTrigger value="pricing">Pricing</TabsTrigger>
           </TabsList>
 
           {/* Applications */}
@@ -389,6 +391,11 @@ export default function Admin() {
             <p className="text-xs text-muted-foreground mt-2">
               Showing {filteredMsgs.length} of {msgs.length}
             </p>
+          </TabsContent>
+
+          {/* Pricing */}
+          <TabsContent value="pricing" className="mt-6">
+            <PricingManager />
           </TabsContent>
         </Tabs>
 
