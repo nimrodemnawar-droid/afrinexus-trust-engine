@@ -265,6 +265,7 @@ export default function Admin() {
           <TabsList>
             <TabsTrigger value="applications">Applications ({apps.length})</TabsTrigger>
             <TabsTrigger value="messages">Contact Messages ({msgs.length})</TabsTrigger>
+            <TabsTrigger value="pricing">Pricing</TabsTrigger>
           </TabsList>
 
           {/* Applications */}
