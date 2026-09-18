@@ -10,6 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { PricingManager } from "@/components/admin/PricingManager";
 import {
   Loader2, LogOut, ShieldAlert, FileText, Mail, Clock, CheckCircle2,
   Search, Download, Save,
