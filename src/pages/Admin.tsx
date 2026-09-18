@@ -390,6 +390,11 @@ export default function Admin() {
               Showing {filteredMsgs.length} of {msgs.length}
             </p>
           </TabsContent>
+
+          {/* Pricing */}
+          <TabsContent value="pricing" className="mt-6">
+            <PricingManager />
+          </TabsContent>
         </Tabs>
 
         {/* Application detail modal */}
