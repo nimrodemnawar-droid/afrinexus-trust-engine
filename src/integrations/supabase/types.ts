@@ -113,6 +113,60 @@ export type Database = {
         }
         Relationships: []
       }
+      plan_applications: {
+        Row: {
+          admin_notes: string | null
+          company: string
+          contact_name: string
+          country: string | null
+          created_at: string
+          email: string
+          id: string
+          monthly_volume: string | null
+          notes: string | null
+          phone: string | null
+          plan: string
+          status: string
+          trade_focus: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          company: string
+          contact_name: string
+          country?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          monthly_volume?: string | null
+          notes?: string | null
+          phone?: string | null
+          plan: string
+          status?: string
+          trade_focus?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          admin_notes?: string | null
+          company?: string
+          contact_name?: string
+          country?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          monthly_volume?: string | null
+          notes?: string | null
+          phone?: string | null
+          plan?: string
+          status?: string
+          trade_focus?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       platform_fees: {
         Row: {
           created_at: string

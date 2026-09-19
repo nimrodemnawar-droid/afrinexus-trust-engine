@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
 import { FAQ } from "@/components/FAQ";
 import { TiltCard } from "@/components/TiltCard";
-import { Hero3D } from "@/components/Hero3D";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { Marquee } from "@/components/Marquee";
 import { Shield, FileCheck, Search, ArrowRight, CheckCircle2, XCircle, AlertTriangle, Globe2, Lock, Users, Scale } from "lucide-react";
@@ -80,14 +79,25 @@ export default function Index() {
             </div>
           </motion.div>
           <motion.div
-            className="relative h-[380px] md:h-[480px]"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="relative"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="absolute inset-0 rounded-full bg-accent/20 blur-3xl" />
-            <div className="relative h-full w-full">
-              <Hero3D />
+            <div className="overflow-hidden rounded-xl border border-primary-foreground/15 bg-primary/40 backdrop-blur-sm">
+              <img src={heroImage} alt="Container terminal on the East African coast at first light" className="h-56 w-full object-cover md:h-72" />
+              <div className="grid grid-cols-3 divide-x divide-primary-foreground/10 border-t border-primary-foreground/10">
+                {[
+                  { icon: Shield, label: "Verified parties" },
+                  { icon: FileCheck, label: "Documented terms" },
+                  { icon: Lock, label: "Auditable proof" },
+                ].map((item) => (
+                  <div key={item.label} className="px-4 py-5 text-center">
+                    <item.icon className="mx-auto h-5 w-5 text-accent" />
+                    <p className="mt-2 text-xs uppercase tracking-widest text-primary-foreground/70">{item.label}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>

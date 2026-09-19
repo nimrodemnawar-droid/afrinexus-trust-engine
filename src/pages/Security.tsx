@@ -2,7 +2,6 @@ import { Layout } from "@/components/Layout";
 import { SEO } from "@/components/SEO";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
-import { Shield3D } from "@/components/Shield3D";
 import { TiltCard } from "@/components/TiltCard";
 import { motion } from "framer-motion";
 import { Lock, Eye, ShieldCheck, Server, UserX, FileKey } from "lucide-react";
@@ -59,13 +58,27 @@ export default function Security() {
             />
           </div>
           <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-            className="relative h-[340px] md:h-[420px]"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="rounded-xl border border-primary-foreground/15 bg-primary/40 p-6 backdrop-blur-sm"
           >
-            <div className="absolute inset-0 rounded-full bg-accent/20 blur-3xl" />
-            <Shield3D />
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent">Security posture</p>
+            <div className="mt-5 space-y-4">
+              {[
+                { icon: Lock, title: "Encrypted in transit and at rest", text: "Deal data is protected end to end." },
+                { icon: ShieldCheck, title: "Row-level access controls", text: "Only parties to a deal can read its records." },
+                { icon: UserX, title: "No data resale, ever", text: "Your information is never sold or brokered." },
+              ].map((item) => (
+                <div key={item.title} className="flex items-start gap-3 border-b border-primary-foreground/10 pb-4 last:border-0 last:pb-0">
+                  <item.icon className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
+                  <div>
+                    <p className="text-sm font-semibold text-primary-foreground">{item.title}</p>
+                    <p className="text-sm text-primary-foreground/60">{item.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>

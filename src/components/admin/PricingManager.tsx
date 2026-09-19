@@ -61,6 +61,31 @@ export function PricingManager() {
     await load();
   };
 
+  const addPlan = async () => {
+    const { error } = await supabase.from("pricing_plans").insert({
+      name: "New plan",
+      price: "KSh 0",
+      cadence: "/month",
+      tagline: "",
+      features: [],
+      escrow_rate: "",
+      cta_label: "Apply for Early Access",
+      cta_href: "/early-access",
+      badge: null,
+      highlighted: false,
+      published: false,
+      sort_order: plans.length + 1,
+    });
+    if (error) return toast({ title: "Could not add", description: error.message, variant: "destructive" });
+    await load();
+  };
+
+  const deletePlan = async (id: string) => {
+    const { error } = await supabase.from("pricing_plans").delete().eq("id", id);
+    if (error) return toast({ title: "Could not delete", description: error.message, variant: "destructive" });
+    setPlans((prev) => prev.filter((p) => p.id !== id));
+  };
+
   const deleteFee = async (id: string) => {
     const { error } = await supabase.from("platform_fees").delete().eq("id", id);
     if (error) return toast({ title: "Could not delete", description: error.message, variant: "destructive" });
