@@ -21,6 +21,11 @@ import Admin from "./pages/Admin";
 import Dashboard from "./pages/Dashboard";
 import Chat from "./pages/Chat";
 import NotFound from "./pages/NotFound";
+import Verification from "./pages/journey/Verification";
+import DealRoom from "./pages/journey/DealRoom";
+import Contracts from "./pages/journey/Contracts";
+import JourneyLogistics from "./pages/journey/Logistics";
+import Tracking from "./pages/journey/Tracking";
 import { ChatWidget } from "./components/chat/ChatWidget";
 
 const queryClient = new QueryClient();
@@ -49,6 +54,11 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/journey/verification" element={<Verification />} />
+          <Route path="/journey/deal-room" element={<DealRoom />} />
+          <Route path="/journey/contracts" element={<Contracts />} />
+          <Route path="/journey/logistics" element={<JourneyLogistics />} />
+          <Route path="/journey/tracking" element={<Tracking />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <ChatWidget />
