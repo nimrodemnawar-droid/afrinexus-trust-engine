@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
 import { useToast } from "@/hooks/use-toast";
 
 type Mode = "signin" | "signup" | "reset";
@@ -28,20 +27,24 @@ export default function Auth() {
 
   const handleGoogle = async () => {
     setGoogleLoading(true);
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: window.location.origin,
+      },
     });
     setGoogleLoading(false);
-    if (result.error) {
+    if (error) {
       toast({
         title: "Google sign-in failed",
-        description: result.error.message ?? "Please try again.",
+        description: error.message || "Please try again.",
         variant: "destructive",
       });
       return;
     }
-    if (result.redirected) return; // Browser is heading to Google
-    navigate("/dashboard");
+    if (data?.url) {
+      window.location.href = data.url;
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
