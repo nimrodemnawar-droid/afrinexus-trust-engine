@@ -72,8 +72,9 @@ export default function Auth() {
         if (error) throw error;
         navigate("/dashboard");
       }
-    } catch (err: any) {
-      toast({ title: "Authentication failed", description: err.message, variant: "destructive" });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      toast({ title: "Authentication failed", description: message, variant: "destructive" });
     } finally {
       setLoading(false);
     }
