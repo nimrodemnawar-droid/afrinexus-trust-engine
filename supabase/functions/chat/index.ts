@@ -1,10 +1,35 @@
 import { convertToModelMessages, streamText, type UIMessage } from "npm:ai@7";
 import { createOpenAI } from "npm:@ai-sdk/openai@4";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+// Origins allowed to call this function, as a comma-separated env var,
+// e.g. "https://afrinexustrust.com,https://www.afrinexustrust.com".
+// If ALLOWED_ORIGINS is unset (the default today), behavior is unchanged
+// from before: every origin is allowed. Set it in the Supabase project's
+// edge function secrets once a production domain is live to restrict this.
+const configuredOrigins = (Deno.env.get("ALLOWED_ORIGINS") ?? "")
+  .split(",")
+  .map((o) => o.trim())
+  .filter(Boolean);
+
+function getCorsHeaders(requestOrigin: string | null): Record<string, string> {
+  const base = {
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+    Vary: "Origin",
+  };
+
+  // No allowlist configured yet -> preserve existing open-CORS behavior.
+  if (configuredOrigins.length === 0) {
+    return { ...base, "Access-Control-Allow-Origin": "*" };
+  }
+
+  if (requestOrigin && configuredOrigins.includes(requestOrigin)) {
+    return { ...base, "Access-Control-Allow-Origin": requestOrigin };
+  }
+
+  // Configured but the caller's origin isn't on the list: omit the
+  // header so the browser blocks the response, without throwing here.
+  return base;
+}
 
 const SYSTEM_PROMPT = `You are "Nexus", the official assistant for Afrinexus — trust infrastructure for cross-border deals between Kenyan SMEs and the diaspora.
 
@@ -16,6 +41,8 @@ You play three roles at once:
 Style: serious, precise, professional — legal/fintech tone, never hype or buzzwords. Short paragraphs, markdown when helpful. Never promise features that do not exist; label roadmap items as "coming later". Never present yourself as a lawyer, accountant or financial advisor — recommend qualified professionals for binding advice. Steer users toward applying for early access when they are ready.`;
 
 Deno.serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req.headers.get("Origin"));
+
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
   try {
