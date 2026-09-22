@@ -46,7 +46,7 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
   try {
-    const apiKey = Deno.env.get("LOVABLE_API_KEY");
+    const apiKey = Deno.env.get("OPENAI_API_KEY");
     if (!apiKey) {
       return new Response(JSON.stringify({ error: "AI is not configured." }), {
         status: 500,
@@ -62,26 +62,17 @@ Deno.serve(async (req) => {
       });
     }
 
-    const lovable = createOpenAI({
-      baseURL: "https://ai.gateway.lovable.dev/v1",
-      apiKey,
-      headers: {
-        "Lovable-API-Key": apiKey,
-        "X-Lovable-AIG-SDK": "vercel-ai-sdk",
-      },
-    });
+    const openai = createOpenAI({ apiKey });
 
     const result = streamText({
-      model: lovable.responses("openai/gpt-6-astra"),
+      model: openai.responses("gpt-5-mini"),
       system: SYSTEM_PROMPT,
       messages: await convertToModelMessages(messages),
       providerOptions: {
         openai: {
           store: false,
-          forceReasoning: true,
           reasoningEffort: "low",
           reasoningSummary: "auto",
-          include: ["reasoning.encrypted_content"],
         },
       },
     });
