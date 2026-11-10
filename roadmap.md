@@ -1,6 +1,9 @@
-- [ ] Update Contact details
-- [ ] Replace public pricing and connect it to editable backend data
-- [ ] Add the full step-by-step Afrinexus trade flow
-- [ ] Finish admin pricing and fee management
-- [ ] Redesign the signed-in dashboard from the supplied reference
-- [ ] Verify type checks, build logs, and key screens
+- [x] Update Contact details
+- [x] Connect public pricing and trade journey to the requested information
+- [x] Add the trade-journey stage pages
+- [ ] Finish and verify admin pricing and fee management
+- [ ] Add secure admin delegation and application review
+- [ ] Add the signed-in Free / Pro / Business application portal
+- [ ] Remove all interactive 3D card effects and verify remaining visual effects
+- [ ] Replace misleading dashboard “coming soon” navigation with working links or clear planned states
+- [ ] Verify role access, forms, pricing, journey pages, and dashboard layouts
