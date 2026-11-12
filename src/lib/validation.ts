@@ -15,6 +15,19 @@ export const earlyAccessSchema = z.object({
 
 export type EarlyAccessInput = z.infer<typeof earlyAccessSchema>;
 
+export const planApplicationSchema = z.object({
+  plan: z.enum(["FREE", "PRO", "BUSINESS"]),
+  company: z.string().trim().min(1, "Business name is required").max(160),
+  contact_name: z.string().trim().min(1, "Contact name is required").max(120),
+  phone: z.string().trim().max(40).optional(),
+  country: z.string().trim().max(80).optional(),
+  trade_focus: z.string().trim().max(160).optional(),
+  monthly_volume: z.string().trim().max(80).optional(),
+  notes: z.string().trim().max(1500).optional(),
+});
+
+export type PlanApplicationInput = z.infer<typeof planApplicationSchema>;
+
 export const contactSchema = z.object({
   full_name: z.string().trim().min(1, "Name is required").max(120),
   email: z.string().trim().email("Enter a valid email address").max(255),
